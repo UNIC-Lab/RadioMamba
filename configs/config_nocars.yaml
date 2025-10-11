@@ -1,0 +1,110 @@
+# v14 Radio-MambaNet: Simplified Single-Scale Configuration
+# This configuration uses the medium scale from v12 as the default and only configuration
+
+# Early Stopping Mechanism Explanation:
+# With 44,000 training samples (550 maps × 80 transmitters) and batch_size=25*2=50 (across 2 GPUs), each epoch requires 880 steps.
+# Validation occurs every 200 steps (val_check_interval), meaning 4.4 validations per epoch.
+# 
+# Learning Rate Scheduling:
+# - lr_scheduler_patience=8: If validation loss doesn't improve for 8 consecutive checks (~1760 steps ≈ 2 epochs),
+#   the learning rate is reduced by factor 0.1
+# 
+# Early Stopping:
+# - early_stopping patience=14: If validation loss doesn't improve for 14 consecutive checks (~2800 steps ≈ 3.2 epochs),
+#   training stops. This occurs after 1-2 learning rate reductions, providing a balance between thorough training
+#   and efficient convergence detection.
+
+# Data Parameters
+data:
+  dataset_root_dir: '/mnt/mydisk/hgjia/data/RadioMapSeer'
+  batch_size: 25
+  num_workers: 4
+  num_tx_per_map: 80
+  cars_simul: 'no'  # 'no' or 'yes' - use simulation with or without cars
+  cars_input: 'no'  # 'no' or 'yes' - include cars channel in input
+  # NOTE: When changing cars_simul/cars_input to 'yes', remember to also change:
+  # - All paths from '_nocars' to '_withcars' in callbacks, logging, and testing sections
+
+# Model Configuration (Based on v12 medium scale)
+Model:
+  in_channels: 3
+  out_channels: 1
+  dims: [48, 96, 192, 384]
+  depths: [2, 3, 4, 2]
+  ssm_d_state: 32
+  ssm_d_conv: 4
+  ssm_expand: 2
+  description: "Radio-MambaNet v14 - 8.97M parameters - Simplified single configuration"
+
+# Training Parameters
+training:
+  learning_rate: 0.0009
+  weight_decay: 0.0001
+  criterion: 'CombinedLossWithGradient'
+  loss_weights:
+    l1: 0.4
+    mse: 0.1
+    ssim: 0.2
+    gradient: 0.3
+  lr_scheduler_patience: 8
+  # Resume training from checkpoint (leave empty '' to start from scratch)
+  resume_from_checkpoint: ''
+
+# PyTorch Lightning Trainer Configuration
+trainer_config:
+  accelerator: 'gpu'
+  devices: [5,6]
+  precision: '16-mixed'
+  max_steps: 100000
+  log_every_n_steps: 220
+  val_check_interval: 220
+
+# Callbacks
+callbacks:
+  checkpoint_best:
+    monitor: 'val_total_loss'
+    dirpath: './checkpoints/nocars/'
+    filename: 'best-radiomamba-nocars-{step}-{val_total_loss:.4f}'
+    save_top_k: 1
+    mode: 'min'
+  checkpoint_latest:
+    dirpath: './checkpoints/nocars/'
+    filename: 'latest-radiomamba-nocars'
+    every_n_train_steps: 220
+    save_top_k: -1
+  early_stopping:
+    monitor: 'val_total_loss'
+    patience: 14
+    verbose: True
+    mode: 'min'
+  save_validation_images:
+    save_dir: './logs/validation_images_nocars/'
+    num_samples: 4
+    log_to_tensorboard: True
+
+# Logging
+logging:
+  tensorboard:
+    save_dir: "./logs/tensorboard"
+    name: "radiomap_mambanet_nocars"
+    version: 1
+
+# Other Parameters
+seed: 42
+
+# Testing Parameters
+testing:
+  checkpoint_path: './checkpoints/nocars/best-radiomamba-nocars-step=26180-val_total_loss=0.0125.ckpt'
+  test_batch_size: 1
+  num_test_samples: 8000
+  num_save_images: 8000
+  results_save_dir: './results/predictions_nocars/'
+  metrics_filename: 'test_metrics_nocars.txt'
+  save_individual_metrics: False
+
+# Model Information
+model_info:
+  params: "8.97M"
+  params_per_sample: 186.9
+  description: "Radio-MambaNet v14 - Simplified single-scale configuration"
+  version: "v14" 
