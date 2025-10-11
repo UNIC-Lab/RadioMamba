@@ -170,12 +170,17 @@ The model expects RadioMapSeer dataset format:
 If you use RadioMamba in your research, please cite:
 
 ```bibtex
-@article{radiomama2024,
-  title={RadioMamba: Radio Map Prediction using Mamba Architecture},
-  author={Your Name},
-  journal={Your Journal},
-  year={2024}
-}
+@ARTICLE{11190042,
+  author={Jia, Honggang and Cheng, Nan and Wang, Xiucheng and Zhou, Conghao and Sun, Ruijin and Shen, Xuemin},
+  journal={IEEE Transactions on Network Science and Engineering}, 
+  title={RadioMamba: Breaking the Accuracy-Efficiency Trade-Off in Radio Map Construction Via a Hybrid Mamba-UNet}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1-14},
+  keywords={Computational modeling;Accuracy;Real-time systems;Computer architecture;6G mobile communication;Context modeling;Feature extraction;Complexity theory;Wireless networks;Transformers;6 G wireless networks;radio map;Mamba;lightweight model;real-time optimization},
+  doi={10.1109/TNSE.2025.3617102}}
+
 ```
 
 ## License
