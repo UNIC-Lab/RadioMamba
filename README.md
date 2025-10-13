@@ -193,4 +193,4 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Contact
 
-For questions and support, please contact [your-email@example.com] 
+For questions and support, please contact [hgjia@stu.xidian.edu.cn] 
