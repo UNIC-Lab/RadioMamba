@@ -42,6 +42,8 @@ pip install torchmetrics
 pip install pillow numpy matplotlib tqdm pyyaml
 ```
 
+> Note: If you encounter issues installing mamba-ssm, refer to https://zhuanlan.zhihu.com/p/27156724975
+
 Verify your installation:
 ```bash
 python scripts/verify_requirements.py
