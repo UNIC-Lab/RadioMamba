@@ -114,6 +114,17 @@ python interactive_visualizer.py
 
 **Note:** Make sure to update the `CHECKPOINT_PATH` and `BUILDINGS_DIR` in `interactive_visualizer.py` according to your environment.
 
+**Demo Video:**
+
+Watch the interactive visualization tool in action:
+
+<video width="800" controls>
+  <source src="docs/demo_video.mp4" type="video/mp4">
+  Your browser does not support the video tag. You can download the video [here](docs/demo_video.mp4).
+</video>
+
+> 📹 The demo video showcases the interactive visualization tool where you can click on building maps to place TX antennas and get real-time path loss predictions.
+
 ## Configuration
 
 The project uses YAML configuration files located in the `configs/` directory:
