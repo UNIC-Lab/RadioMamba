@@ -14,6 +14,7 @@
 - ⚙️ **Flexible Configuration**: YAML-based configuration system for easy experimentation
 - 📊 **Comprehensive Evaluation**: Built-in metrics including MSE, PSNR, SSIM, and NMSE
 - ⚡ **Lightning Integration**: Built on PyTorch Lightning for scalable training
+- 🎯 **Interactive Visualization**: Web-based interactive tool for real-time path loss prediction with click-to-place TX functionality
 
 ---
 
@@ -40,6 +41,7 @@ pip install torch torchvision pytorch-lightning
 pip install mamba-ssm
 pip install torchmetrics
 pip install pillow numpy matplotlib tqdm pyyaml
+pip install gradio  # Required for interactive visualization
 ```
 
 > Note: If you encounter issues installing mamba-ssm, refer to https://zhuanlan.zhihu.com/p/27156724975
@@ -89,6 +91,29 @@ python evaluate_withcars.py  # For scenarios with cars
 python evaluate_nocars.py    # For scenarios without cars
 ```
 
+### Interactive Visualization
+
+Launch the interactive web-based visualization tool for real-time path loss prediction:
+
+```bash
+cd src
+python interactive_visualizer.py
+```
+
+**Features:**
+- 🖱️ **Click-to-place TX**: Click anywhere on the building map to place a transmitter
+- ⚡ **Real-time Prediction**: Instant path loss prediction visualization
+- 📍 **Multiple Map Loading**: Select from predefined maps or manually input map number (0-700)
+- 📊 **Performance Stats**: Display inference time and coordinate information
+
+**Usage:**
+1. The tool will start a Gradio web interface (default: `http://0.0.0.0:7860`)
+2. Select a building map from the dropdown or enter a map number manually
+3. Click on the building map to place the TX antenna
+4. View the predicted path loss distribution on the right panel
+
+**Note:** Make sure to update the `CHECKPOINT_PATH` and `BUILDINGS_DIR` in `interactive_visualizer.py` according to your environment.
+
 ## Configuration
 
 The project uses YAML configuration files located in the `configs/` directory:
@@ -110,7 +135,8 @@ RadioMamba/
 │   ├── model.py            # RadioMamba model definition
 │   ├── dataset.py          # Data loading utilities
 │   ├── train.py            # Training script
-│   └── test.py             # Testing script
+│   ├── test.py             # Testing script
+│   └── interactive_visualizer.py  # Interactive web-based visualization tool
 ├── configs/                # Configuration files
 │   ├── config_nocars.yaml  # No cars scenario config
 │   └── config_withcars.yaml # With cars scenario config
