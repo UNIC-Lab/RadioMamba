@@ -114,13 +114,13 @@ python interactive_visualizer.py
 
 **Note:** Make sure to update the `CHECKPOINT_PATH` and `BUILDINGS_DIR` in `interactive_visualizer.py` according to your environment.
 
-**Demo GIF:**
+**Demo Video:**
 
 Watch the interactive visualization tool in action:
 
-![Demo GIF](docs/demo.gif)
+[📹 Watch Demo Video on Google Drive]([https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing](https://drive.google.com/file/d/1nlTFbLkZF-lS5OA2_DPuL86ktiywMsPd/view?usp=drive_link))
 
-> 📹 The demo GIF showcases the interactive visualization tool where you can click on building maps to place TX antennas and get real-time path loss predictions.
+> 📹 The demo video showcases the interactive visualization tool where you can click on building maps to place TX antennas and get real-time path loss predictions.
 
 ## Configuration
 
