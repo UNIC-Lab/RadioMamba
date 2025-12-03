@@ -118,7 +118,7 @@ python interactive_visualizer.py
 
 Watch the interactive visualization tool in action:
 
-[📹 Watch Demo Video](https://github.com/UNIC-Lab/RadioMamba/blob/main/docs/demo.mp4)
+https://github.com/UNIC-Lab/RadioMamba/assets/123456/demo.mp4
 
 > 📹 The demo video showcases the interactive visualization tool where you can click on building maps to place TX antennas and get real-time path loss predictions.
 
